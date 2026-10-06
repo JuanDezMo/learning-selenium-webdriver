@@ -66,11 +66,11 @@ Criterio de salida: `./gradlew componentTest` y `./gradlew e2eTest` ejecutan cad
 
 Criterio de salida: un solo comando de Compose ejecuta un escenario `@component` en contenedores y deja los resultados en el host.
 
-- [ ] 6.1 Crear el contenedor ejecutor (JDK 21 con el wrapper del proyecto) y verificar que ejecuta `./gradlew --version` dentro del contenedor
-- [ ] 6.2 Crear `docker-compose.yml` con el ejecutor y el navegador remoto de Selenium con visualización, espera de disponibilidad por salud del navegador y volúmenes para caché de Gradle y resultados; verificar que `docker compose up` deja ambos servicios sanos
-- [ ] 6.3 Configurar un perfil de ambiente para modo remoto y headless apuntando al servicio de navegador; verificar que un escenario `@component` corre en contenedores y termina con los contenedores detenidos
-- [ ] 6.4 Verificar que la segunda ejecución reutiliza la caché y que los resultados quedan en el directorio del proyecto del anfitrión
-- [ ] 6.5 Documentar en español el comando único de ejecución en contenedores, cómo ver el navegador remoto y cuándo usar local o contenedor; verificar ejecutando los comandos tal como están escritos
+- [x] 6.1 Crear el contenedor ejecutor (JDK 21 con el wrapper del proyecto) y verificar que ejecuta `./gradlew --version` dentro del contenedor
+- [x] 6.2 Crear `docker-compose.yml` con el ejecutor y el navegador remoto de Selenium con visualización, espera de disponibilidad por salud del navegador y volúmenes para caché de Gradle y resultados; verificar que `docker compose up` deja ambos servicios sanos
+- [x] 6.3 Configurar un perfil de ambiente para modo remoto y headless apuntando al servicio de navegador; verificar que un escenario `@component` corre en contenedores y termina con los contenedores detenidos
+- [x] 6.4 Verificar que la segunda ejecución reutiliza la caché y que los resultados quedan en el directorio del proyecto del anfitrión
+- [x] 6.5 Documentar en español el comando único de ejecución en contenedores, cómo ver el navegador remoto y cuándo usar local o contenedor; verificar ejecutando los comandos tal como están escritos
 - [ ] 6.6 Avisar al usuario el cierre de la iteración 6 con el resultado del criterio de salida y detenerse para su commit
 
 ## 7. Iteración 7: Allure

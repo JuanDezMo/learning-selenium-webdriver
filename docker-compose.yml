@@ -1,0 +1,33 @@
+# Ejecución de las pruebas en contenedores: un ejecutor (JDK 21 + wrapper) y un navegador remoto.
+# Comando único:  docker compose up --build --abort-on-container-exit --exit-code-from runner
+services:
+  selenium:
+    image: selenium/standalone-chrome:latest
+    shm_size: 2gb
+    environment:
+      SE_VNC_NO_PASSWORD: "1"
+    ports:
+      - "4444:4444"   # API de Selenium
+      - "7900:7900"   # noVNC: ver el navegador en http://localhost:7900
+    healthcheck:
+      test: ["CMD", "/opt/bin/check-grid.sh", "--host", "0.0.0.0", "--port", "4444"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  runner:
+    build: ./docker
+    # Mismo usuario que en el anfitrión para que los resultados no queden como root
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    working_dir: /workspace
+    volumes:
+      - .:/workspace                  # código y resultados (build/) en el proyecto del anfitrión
+      - gradle-cache:/gradle-cache    # caché de Gradle entre ejecuciones
+    depends_on:
+      selenium:
+        condition: service_healthy
+    # TEST_TASK permite cambiar la tarea: componentTest (por defecto), e2eTest o test
+    command: ["sh", "-c", "./gradlew ${TEST_TASK:-componentTest} -Denv=docker"]
+
+volumes:
+  gradle-cache:

@@ -38,6 +38,14 @@ La aplicación se elige con `-Dapp=<nombre>` (por defecto `saucedemo`) y el ambi
 
 Más detalle del navegador, las propiedades disponibles y ejemplos en [docs/driver-y-configuracion.md](docs/driver-y-configuracion.md).
 
+## Ejecución en contenedores
+
+```bash
+docker compose up --build --abort-on-container-exit --exit-code-from runner
+```
+
+Corre los escenarios `@component` con el navegador en un contenedor y deja los resultados en `build/`. Detalle, ver el navegador remoto y cuándo usar local o contenedores: [docs/docker-y-contenedores.md](docs/docker-y-contenedores.md).
+
 ## Guía del patrón
 
 Cómo está organizado el código (Page Object Model en dos capas, reglas SOLID básicas y reglas de idioma): [docs/guia-patron-pom.md](docs/guia-patron-pom.md). **Léela antes de agregar código.**
