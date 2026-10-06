@@ -192,6 +192,8 @@ Los principios **L** (sustitución) e **I** (interfaces pequeñas) no se imponen
 
 - Todo lo que es **código** va en **inglés**: nombres de clases, métodos y variables, y los archivos `.feature` con sus steps (`Given`, `When`, `Then`).
 - Los **comentarios** y la **documentación técnica** van en **español**.
+- Los **mensajes de error** que ve el equipo técnico en el log (excepciones y mensajes de los asserts) van en **español**.
+- Los textos de `@Step` de Allure van en **inglés**, igual que el Gherkin: el reporte lo leen también personas no técnicas.
 
 ## Cómo escribir buenos escenarios (convención de Gherkin)
 

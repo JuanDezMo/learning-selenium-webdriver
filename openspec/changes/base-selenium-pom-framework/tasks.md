@@ -71,7 +71,7 @@ Criterio de salida: un solo comando de Compose ejecuta un escenario `@component`
 - [x] 6.3 Configurar un perfil de ambiente para modo remoto y headless apuntando al servicio de navegador; verificar que un escenario `@component` corre en contenedores y termina con los contenedores detenidos
 - [x] 6.4 Verificar que la segunda ejecución reutiliza la caché y que los resultados quedan en el directorio del proyecto del anfitrión
 - [x] 6.5 Documentar en español el comando único de ejecución en contenedores, cómo ver el navegador remoto y cuándo usar local o contenedor; verificar ejecutando los comandos tal como están escritos
-- [ ] 6.6 Avisar al usuario el cierre de la iteración 6 con el resultado del criterio de salida y detenerse para su commit
+- [x] 6.6 Avisar al usuario el cierre de la iteración 6 con el resultado del criterio de salida y detenerse para su commit
 
 ## 7. Iteración 7: Allure
 
@@ -83,7 +83,7 @@ Criterio de salida: tras una ejecución, el reporte Allure se genera con escenar
 - [x] 7.4 Tomar la captura de pantalla en el hook posterior al escenario solo si falló, con el navegador del hilo actual, y adjuntarla una sola vez; verificar con un escenario que falla a propósito (con captura) y con uno aprobado (sin captura)
 - [x] 7.5 Clasificar los escenarios por `@component` y `@e2e` en el reporte; verificar que se pueden filtrar
 - [x] 7.6 Verificar que el reporte generado en contenedores queda en el host y documentar en español cómo generarlo y consultarlo en local y en contenedores
-- [ ] 7.7 Avisar al usuario el cierre de la iteración 7 con el resultado del criterio de salida y detenerse para su commit
+- [x] 7.7 Avisar al usuario el cierre de la iteración 7 con el resultado del criterio de salida y detenerse para su commit
 
 ## 8. Iteración 8: Paralelismo
 
@@ -94,7 +94,7 @@ Criterio de salida: la suite completa en paralelo con 2 o más hilos da los mism
 - [x] 8.3 Verificar que capturas y pasos de Allure se asocian al escenario correcto en paralelo, con un fallo provocado mientras otros corren
 - [x] 8.4 Comparar resultados por escenario entre ejecución secuencial y paralela de la suite completa y verificar que son equivalentes
 - [x] 8.5 Documentar en español cómo activar el paralelismo, el número de hilos recomendado y las reglas para escribir pasos sin estado compartido
-- [ ] 8.6 Avisar al usuario el cierre de la iteración 8 con el resultado del criterio de salida y detenerse para su commit
+- [x] 8.6 Avisar al usuario el cierre de la iteración 8 con el resultado del criterio de salida y detenerse para su commit
 
 ## 9. Iteración 9: Selenium Grid
 
@@ -104,7 +104,7 @@ Criterio de salida: la suite corre en paralelo contra un Grid con 2 o más nodos
 - [x] 9.2 Apuntar el modo remoto del driver al hub mediante configuración y verificar que una prueba corre en el Grid
 - [x] 9.3 Ejecutar la suite en paralelo contra el Grid y verificar que cada hilo recibe una sesión independiente y que las sesiones se distribuyen entre nodos
 - [x] 9.4 Documentar en español cómo levantar el Grid, escalar nodos y apuntar las pruebas; verificar ejecutando los comandos tal como están escritos
-- [ ] 9.5 Avisar al usuario el cierre de la iteración 9 con el resultado del criterio de salida y detenerse para su commit
+- [x] 9.5 Avisar al usuario el cierre de la iteración 9 con el resultado del criterio de salida y detenerse para su commit
 
 ## 10. Iteración 10: Jenkins local en contenedores
 
@@ -116,14 +116,14 @@ Criterio de salida: Jenkins local ejecuta el pipeline versionado, falla ante un 
 - [x] 10.4 Publicar el reporte Allure en cada ejecución, incluso con fallos; verificar que se consulta desde Jenkins en ambos casos
 - [x] 10.5 Revisar que ningún archivo del CI contenga credenciales reales y verificarlo con una búsqueda de contraseñas y tokens en el repositorio
 - [x] 10.6 Documentar en español cómo levantar el CI, lanzar el pipeline y consultar resultados; verificar siguiendo la guía desde cero
-- [ ] 10.7 Avisar al usuario el cierre de la iteración 10 con el resultado del criterio de salida y detenerse para su commit
+- [x] 10.7 Avisar al usuario el cierre de la iteración 10 con el resultado del criterio de salida y detenerse para su commit
 
 ## 11. Verificación integral
 
-- [ ] 11.1 Ejecutar de punta a punta, en una máquina limpia siguiendo solo la documentación, el modo local, contenedores, paralelismo, Grid y Jenkins, y verificar que cada ruta cumple sus specs
-- [ ] 11.2 Revisar que el código esté en inglés y que comentarios y documentación estén en español, y verificar que no queden mezclas
-- [ ] 11.3 Ejecutar `openspec validate base-selenium-pom-framework --strict` y verificar que no reporta errores
-- [ ] 11.4 Avisar al usuario el cierre de la verificación integral
+- [x] 11.1 Ejecutar de punta a punta, en una máquina limpia siguiendo solo la documentación, el modo local, contenedores, paralelismo, Grid y Jenkins, y verificar que cada ruta cumple sus specs
+- [x] 11.2 Revisar que el código esté en inglés y que comentarios y documentación estén en español, y verificar que no queden mezclas
+- [x] 11.3 Ejecutar `openspec validate base-selenium-pom-framework --strict` y verificar que no reporta errores
+- [x] 11.4 Avisar al usuario el cierre de la verificación integral
 
 ## Workflow follow-up
 
