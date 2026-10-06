@@ -25,16 +25,24 @@ class ConfigReaderTest {
 
     @Test
     void environmentVariableOverridesFile() {
-        ConfigReader config = new ConfigReader(Map.of(), Map.of("BASE_URL", "https://desde-entorno"));
+        ConfigReader config = new ConfigReader(Map.of(), Map.of("TEST_BASE_URL", "https://desde-entorno"));
 
         assertEquals("https://desde-entorno", config.getRequired("base.url"));
+    }
+
+    @Test
+    void environmentVariableWithoutPrefixIsIgnored() {
+        // BROWSER es una variable muy común del sistema; no debe confundirse con la propiedad browser
+        ConfigReader config = new ConfigReader(Map.of(), Map.of("BROWSER", "firefox"));
+
+        assertEquals("chrome", config.get("browser", "otro"));
     }
 
     @Test
     void systemPropertyOverridesEnvironmentVariable() {
         ConfigReader config = new ConfigReader(
                 Map.of("base.url", "https://desde-sistema"),
-                Map.of("BASE_URL", "https://desde-entorno"));
+                Map.of("TEST_BASE_URL", "https://desde-entorno"));
 
         assertEquals("https://desde-sistema", config.getRequired("base.url"));
     }

@@ -47,7 +47,7 @@ Toda interacción con elementos SHALL esperar de forma explícita a que el eleme
 - **THEN** la acción falla con un mensaje que indica el localizador y el tiempo esperado
 
 ### Requirement: Alta de una aplicación nueva sin tocar el núcleo
-Agregar una aplicación SHALL requerir solo crear sus localizadores, acciones, steps, features y archivo de configuración, sin modificar el núcleo ni el gestor de navegador.
+Agregar una aplicación SHALL requerir solo crear sus localizadores, acciones, steps, features, archivo de configuración y runner, sin modificar el núcleo, el gestor de navegador ni otras aplicaciones.
 
 #### Scenario: Segunda aplicación
 - **WHEN** se agrega una aplicación adicional siguiendo la guía

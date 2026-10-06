@@ -1,0 +1,57 @@
+// Tarea checkScenarioTags: verifica que todos los escenarios estén bien etiquetados.
+//
+// Reglas:
+//   1. Cada escenario debe tener exactamente una etiqueta de tipo: @component o @e2e
+//      (puesta en el escenario o en el Feature, que la heredan todos sus escenarios).
+//   2. El tipo debe coincidir con la carpeta: @component en .../component/ y @e2e en .../e2e/.
+//
+// Si alguna regla falla, la tarea falla indicando archivo, línea y escenario.
+tasks.register('checkScenarioTags') {
+    group = 'verification'
+    description = 'Verifica que cada escenario tenga la etiqueta @component o @e2e y esté en su carpeta'
+
+    def featuresDir = file('src/test/resources/features')
+    inputs.dir(featuresDir)
+
+    doLast {
+        def typeTags = ['@component', '@e2e']
+        def scenarioPattern = ~/^\s*(Scenario Outline|Scenario Template|Scenario|Example):\s*(.*)$/
+        def errors = []
+
+        featuresDir.eachFileRecurse { file ->
+            if (!file.name.endsWith('.feature')) {
+                return
+            }
+            def relativePath = featuresDir.toPath().relativize(file.toPath()).toString()
+            def featureTags = []
+            def pendingTags = []
+
+            file.readLines().eachWithIndex { line, index ->
+                def text = line.trim()
+                def scenario = (line =~ scenarioPattern)
+                if (text.startsWith('@')) {
+                    pendingTags += text.split(/\s+/).findAll { it.startsWith('@') }
+                } else if (text.startsWith('Feature:')) {
+                    featureTags = pendingTags
+                    pendingTags = []
+                } else if (scenario.matches()) {
+                    def types = (featureTags + pendingTags).findAll { it in typeTags }.unique()
+                    def name = scenario[0][2]
+                    def where = "${relativePath}:${index + 1}"
+                    if (types.size() != 1) {
+                        errors << "${where}: el escenario '${name}' debe tener exactamente una etiqueta (@component o @e2e) y tiene: ${types ?: 'ninguna'}"
+                    } else if (!relativePath.contains('/' + types[0].substring(1) + '/')) {
+                        errors << "${where}: el escenario '${name}' es ${types[0]} pero el archivo no está en una carpeta '${types[0].substring(1)}'"
+                    }
+                    pendingTags = []
+                } else if (text && !text.startsWith('#')) {
+                    pendingTags = []
+                }
+            }
+        }
+
+        if (errors) {
+            throw new GradleException("Escenarios mal etiquetados:\n  - " + errors.join('\n  - '))
+        }
+    }
+}

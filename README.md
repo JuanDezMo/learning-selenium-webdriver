@@ -12,8 +12,12 @@ Proyecto base para pruebas funcionales web con **Selenium WebDriver**, **Java 21
 ## Ejecutar las pruebas
 
 ```bash
-./gradlew test
+./gradlew test             # pruebas unitarias y todos los escenarios
+./gradlew componentTest    # solo los escenarios de componente
+./gradlew e2eTest          # solo los escenarios E2E
 ```
+
+Agrega `-Dheadless=true` para no ver el navegador y `-Dapp=<nombre>` para elegir otra aplicación (por defecto `saucedemo`).
 
 Para ver la versión de Gradle que usa el proyecto:
 
@@ -26,7 +30,7 @@ Para ver la versión de Gradle que usa el proyecto:
 Los valores se leen en este orden de prioridad (el primero que exista gana):
 
 1. Propiedad de sistema: `./gradlew test -Dbrowser=firefox`
-2. Variable de entorno: nombre en mayúsculas con `_` en lugar de `.` (por ejemplo `BASE_URL`)
+2. Variable de entorno: prefijo `TEST_`, nombre en mayúsculas y `_` en lugar de `.` (por ejemplo `TEST_BASE_URL` o `TEST_BROWSER`)
 3. Archivos en `src/test/resources/config/`:
    `default.properties` → `{app}.properties` → `{app}-{env}.properties`
 
@@ -46,8 +50,8 @@ src/test/java/com/empresa/
   core/      acciones base con esperas explícitas
   driver/    creación y cierre del navegador (uno por hilo)
   pages/     por aplicación: locators/ y actions/
-  steps/     steps de Cucumber (delgados)
-  runner/    punto de entrada de Cucumber
+  steps/     steps de Cucumber (delgados): common/ (hooks) y un paquete por aplicación
+  runner/    un punto de entrada de Cucumber por aplicación (Run<Aplicacion>Test)
 src/test/resources/
   config/    archivos de propiedades
   features/  escenarios Gherkin (en inglés)

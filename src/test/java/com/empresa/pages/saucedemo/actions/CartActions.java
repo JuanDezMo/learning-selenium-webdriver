@@ -20,6 +20,11 @@ public class CartActions extends BaseActions {
         return getTexts(ITEM_NAMES);
     }
 
+    /** Indica si el carrito no tiene productos (responde de inmediato, sin esperar). */
+    public boolean isEmpty() {
+        return !isVisible(ITEM_NAMES);
+    }
+
     /** Presiona Checkout para pasar al formulario de datos. */
     public void startCheckout() {
         click(CHECKOUT_BUTTON);

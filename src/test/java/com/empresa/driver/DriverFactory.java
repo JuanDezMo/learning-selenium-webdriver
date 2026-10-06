@@ -3,6 +3,8 @@ package com.empresa.driver;
 import com.empresa.config.ConfigReader;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -63,6 +65,14 @@ public class DriverFactory {
 
     private static ChromeOptions chromeOptions(boolean headless) {
         ChromeOptions options = new ChromeOptions();
+        // Chrome reconoce como filtradas las credenciales públicas de demostración (por ejemplo las de
+        // saucedemo) y muestra un aviso "Cambia tu contraseña" que bloquea toda la entrada a la página.
+        // Se desactiva el gestor de contraseñas para que ningún aviso interfiera con las pruebas.
+        Map<String, Object> preferences = new HashMap<>();
+        preferences.put("credentials_enable_service", false);
+        preferences.put("profile.password_manager_enabled", false);
+        preferences.put("profile.password_manager_leak_detection", false);
+        options.setExperimentalOption("prefs", preferences);
         if (headless) {
             options.addArguments("--headless=new", "--window-size=1920,1080");
         }

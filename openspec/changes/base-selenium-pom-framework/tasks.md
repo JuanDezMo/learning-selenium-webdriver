@@ -56,11 +56,11 @@ Criterio de salida: `./gradlew test` ejecuta en verde todos los escenarios `@com
 
 Criterio de salida: `./gradlew componentTest` y `./gradlew e2eTest` ejecutan cada uno solo lo suyo y todo pasa en verde.
 
-- [ ] 5.1 Escribir los escenarios `@e2e` (compra completa; agregar, quitar, carrito vacío y cierre de sesión); verificar que pasan de extremo a extremo
-- [ ] 5.2 Definir tareas de Gradle `componentTest`, `e2eTest` y `test` que filtren por etiqueta; verificar que cada tarea ejecuta solo lo suyo
-- [ ] 5.3 Crear un chequeo que falle si un escenario carece de `@component` o `@e2e`; verificar que falla con un escenario sin etiqueta y pasa sin él
-- [ ] 5.4 Documentar en la guía la convención de redacción de Gherkin (buenos y malos ejemplos) y el procedimiento para dar de alta una aplicación nueva; verificar siguiendo el procedimiento con una aplicación ficticia y comprobando que no se modifica el núcleo, y luego descartarla
-- [ ] 5.5 Avisar al usuario el cierre de la iteración 5 con el resultado del criterio de salida y detenerse para su commit
+- [x] 5.1 Escribir los escenarios `@e2e` (compra completa; agregar, quitar, carrito vacío y cierre de sesión); verificar que pasan de extremo a extremo
+- [x] 5.2 Definir tareas de Gradle `componentTest`, `e2eTest` y `test` que filtren por etiqueta; verificar que cada tarea ejecuta solo lo suyo
+- [x] 5.3 Crear un chequeo que falle si un escenario carece de `@component` o `@e2e`; verificar que falla con un escenario sin etiqueta y pasa sin él
+- [x] 5.4 Documentar en la guía la convención de redacción de Gherkin (buenos y malos ejemplos) y el procedimiento para dar de alta una aplicación nueva; verificar siguiendo el procedimiento con una aplicación ficticia y comprobando que no se modifica el núcleo, y luego descartarla
+- [x] 5.5 Avisar al usuario el cierre de la iteración 5 con el resultado del criterio de salida y detenerse para su commit
 
 ## 6. Iteración 6: Docker
 

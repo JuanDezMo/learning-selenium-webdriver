@@ -193,6 +193,62 @@ Los principios **L** (sustitución) e **I** (interfaces pequeñas) no se imponen
 - Todo lo que es **código** va en **inglés**: nombres de clases, métodos y variables, y los archivos `.feature` con sus steps (`Given`, `When`, `Then`).
 - Los **comentarios** y la **documentación técnica** van en **español**.
 
+## Cómo escribir buenos escenarios (convención de Gherkin)
+
+Los escenarios los leen y escriben personas no técnicas. Se escriben en **inglés**, con frases del negocio y sin detalles técnicos.
+
+| Regla | Mal | Bien |
+|---|---|---|
+| Describir lo que hace la persona, no la pantalla | `When I click the element with id login-button` | `When the user logs in as "standard"` |
+| Sin selectores, ids ni URLs | `Given I open https://www.saucedemo.com` | `Given the user is on the login page` |
+| Un escenario prueba una sola cosa | Un escenario que prueba login, orden y carrito | Un escenario por comportamiento |
+| El resultado esperado va en el `Then` | `Then the span.error is visible` | `Then the login error message is "Epic sadface: Username is required"` |
+| Pasos reutilizables, con valores entre comillas | `When the user adds the backpack to the cart` | `When the user adds "Sauce Labs Backpack" to the cart` |
+| Usuarios por alias, nunca con contraseñas escritas | `When the user logs in with "standard_user" and "secret_sauce"` | `When the user logs in as "standard"` |
+| Muchos casos parecidos: `Scenario Outline` con tabla `Examples` | Tres escenarios casi iguales | Un `Scenario Outline` con tres filas |
+
+**Lo que hace un step lo decide el código, no el texto.** Si dos escenarios necesitan lo mismo, deben usar exactamente la misma frase para reutilizar el step.
+
+### Componente o E2E
+
+Todo escenario lleva **una sola** etiqueta de tipo, en el `Feature` (la heredan todos sus escenarios) o en el propio escenario, y está en la carpeta del mismo tipo:
+
+| Etiqueta | Qué prueba | Carpeta | Cómo empieza |
+|---|---|---|---|
+| `@component` | Una pantalla o widget, de forma aislada | `features/<app>/component/` | Con el step de precondición `the user is logged in as "standard"` |
+| `@e2e` | Un flujo de negocio completo por varias pantallas | `features/<app>/e2e/` | Desde el login, por interfaz |
+
+La tarea `checkScenarioTags` lo verifica antes de cada ejecución: falla, indicando archivo y línea, si un escenario no tiene etiqueta, tiene dos, o está en la carpeta equivocada.
+
+## Cómo ejecutar
+
+| Quiero... | Comando |
+|---|---|
+| Todo (pruebas unitarias y todos los escenarios) | `./gradlew test` |
+| Solo los escenarios de componente | `./gradlew componentTest` |
+| Solo los E2E | `./gradlew e2eTest` |
+| Sin ventana de navegador | Agregar `-Dheadless=true` |
+| Otra aplicación | Agregar `-Dapp=<nombre>` (por defecto `saucedemo`) |
+| Verificar solo las etiquetas | `./gradlew checkScenarioTags` |
+
+Cada ejecución corre **una sola aplicación**: la elegida con `-Dapp`.
+
+## Cómo dar de alta una aplicación nueva
+
+Se crean archivos nuevos y **no se modifica ningún archivo del núcleo ni de otras aplicaciones**. Ejemplo con una aplicación llamada `miapp` (todo en minúsculas, sin espacios):
+
+1. **Configuración:** `src/test/resources/config/miapp.properties`, con al menos `base.url=...` (y sus usuarios de prueba: `user.<alias>.name` y `user.<alias>.password`).
+2. **Localizadores y acciones**, por cada pantalla:
+   - `src/test/java/com/empresa/pages/miapp/locators/HomeLocators.java` (solo `By`)
+   - `src/test/java/com/empresa/pages/miapp/actions/HomeActions.java` (extiende `BaseActions`)
+3. **Steps:** `src/test/java/com/empresa/steps/miapp/HomeSteps.java`. Deben vivir en el paquete `com.empresa.steps.miapp`.
+4. **Escenarios:** `src/test/resources/features/miapp/component/home.feature` (y `.../e2e/` para los E2E), con su etiqueta.
+5. **Runner:** copia `src/test/java/com/empresa/runner/RunSaucedemoTest.java` como `RunMiappTest.java` y cambia tres cosas: el nombre de la clase, `@SelectClasspathResource("features/miapp")` y el paquete de steps (`com.empresa.steps.miapp`). **El nombre debe ser `Run<Aplicacion>Test`** con la primera letra en mayúscula, porque Gradle lo usa para elegir la aplicación.
+
+Para ejecutarla: `./gradlew componentTest -Dapp=miapp`.
+
+**Por qué cada aplicación tiene su runner y su paquete de steps:** Cucumber falla si dos steps tienen el mismo texto en el mismo conjunto de steps. Con un runner por aplicación, dos aplicaciones pueden usar frases iguales (por ejemplo `Given the user is on the login page`) sin chocar. Los hooks comunes (cerrar el navegador) viven en `com.empresa.steps.common` y todos los runners los incluyen.
+
 ## Qué se agrega en cada situación
 
 | Quiero... | Creo o modifico... |
@@ -200,6 +256,7 @@ Los principios **L** (sustitución) e **I** (interfaces pequeñas) no se imponen
 | Cambiar un selector | Solo el `*Locators` de esa pantalla |
 | Cambiar el flujo de una pantalla | Solo el `*Actions` de esa pantalla |
 | Agregar una pantalla | Un `*Locators`, un `*Actions` y sus steps |
-| Agregar un escenario | Un `.feature` con la etiqueta `@component` o `@e2e` |
+| Agregar un escenario | Un `.feature` con la etiqueta `@component` o `@e2e`, en su carpeta |
+| Agregar una aplicación | Ver "Cómo dar de alta una aplicación nueva" |
 | Agregar un usuario de prueba | `config/<app>.properties` |
 | Usar otro navegador | Una propiedad: `-Dbrowser=firefox` (ver [driver y configuración](driver-y-configuracion.md)) |

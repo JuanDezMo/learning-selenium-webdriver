@@ -39,13 +39,40 @@ dependencies {
     testRuntimeOnly "org.slf4j:slf4j-simple:${slf4jVersion}"
 }
 
-tasks.named('test') {
+// Chequeo de que cada escenario tenga la etiqueta @component o @e2e
+apply from: 'gradle/scenario-tags.gradle'
+
+// Aplicación a probar: -Dapp=<nombre> (por defecto saucedemo). Cada aplicación tiene su runner
+// com.empresa.runner.Run<Aplicacion>Test y solo se ejecuta el de la aplicación elegida.
+def selectedApp = (gradle.startParameter.systemPropertiesArgs['app'] ?: 'saucedemo').toLowerCase()
+def selectedRunner = "Run${selectedApp.capitalize()}Test"
+def otherRunners = fileTree('src/test/java/com/empresa/runner').matching { include 'Run*Test.java' }
+        .files.collect { it.name - '.java' }.findAll { it != selectedRunner }
+
+tasks.withType(Test).configureEach {
     useJUnitPlatform()
     // Pasa a las pruebas los -D indicados en la línea de comandos (por ejemplo -Dbrowser=firefox)
     systemProperties(gradle.startParameter.systemPropertiesArgs)
+    // Solo corre el runner de la aplicación elegida
+    otherRunners.each { exclude "**/${it}.class" }
+    // Antes de ejecutar nada se valida que los escenarios estén bien etiquetados
+    dependsOn 'checkScenarioTags'
     // Muestra el resultado de cada prueba en la consola
     testLogging {
         events 'passed', 'failed', 'skipped'
         showStandardStreams = false
+    }
+}
+
+// test: pruebas unitarias del proyecto + todos los escenarios de la aplicación elegida
+// componentTest / e2eTest: solo los escenarios de ese tipo (sin pruebas unitarias)
+['component', 'e2e'].each { type ->
+    tasks.register("${type}Test", Test) {
+        group = 'verification'
+        description = "Ejecuta solo los escenarios @${type} de la aplicación elegida (-Dapp)"
+        testClassesDirs = sourceSets.test.output.classesDirs
+        classpath = sourceSets.test.runtimeClasspath
+        include '**/Run*Test.class'
+        systemProperty 'cucumber.filter.tags', "@${type}"
     }
 }

@@ -34,6 +34,24 @@ public class CheckoutSteps {
         checkoutActions.fillInformationAndContinue(firstName, lastName, postalCode);
     }
 
+    @When("the user continues the checkout with valid information")
+    public void theUserContinuesTheCheckoutWithValidInformation() {
+        checkoutActions.fillInformationAndContinue(
+                config.getRequired("checkout.first.name"),
+                config.getRequired("checkout.last.name"),
+                config.getRequired("checkout.postal.code"));
+    }
+
+    @When("the user finishes the purchase")
+    public void theUserFinishesThePurchase() {
+        checkoutActions.finishPurchase();
+    }
+
+    @Then("the order confirmation message is {string}")
+    public void theOrderConfirmationMessageIs(String expectedMessage) {
+        assertEquals(expectedMessage, checkoutActions.getConfirmationMessage());
+    }
+
     @Then("the checkout error message is {string}")
     public void theCheckoutErrorMessageIs(String expectedMessage) {
         assertEquals(expectedMessage, checkoutActions.getErrorMessage());

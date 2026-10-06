@@ -1,4 +1,4 @@
-package com.empresa.steps;
+package com.empresa.steps.common;
 
 import com.empresa.driver.DriverManager;
 import io.cucumber.java.After;

@@ -10,8 +10,9 @@ import java.util.Properties;
  *
  * Orden de prioridad (el primero que tenga el valor gana):
  *   1. Propiedades de sistema, por ejemplo: ./gradlew test -Dbrowser=firefox
- *   2. Variables de entorno, con el nombre en mayúsculas y "_" en lugar de ".",
- *      por ejemplo: BASE_URL para la propiedad base.url
+ *   2. Variables de entorno con el prefijo TEST_, el nombre en mayúsculas y "_" en lugar de ".",
+ *      por ejemplo: TEST_BASE_URL para la propiedad base.url o TEST_BROWSER para browser.
+ *      El prefijo evita chocar con variables del sistema que ya existen (por ejemplo BROWSER).
  *   3. Archivos de propiedades en src/test/resources/config, cargados en este orden
  *      (el último pisa al anterior):
  *        default.properties -> {app}.properties -> {app}-{env}.properties
@@ -23,6 +24,7 @@ public class ConfigReader {
 
     public static final String DEFAULT_APP = "saucedemo";
     public static final String DEFAULT_ENV = "local";
+    private static final String ENVIRONMENT_PREFIX = "TEST_";
 
     private final Properties fileProperties = new Properties();
     private final Map<String, String> systemProperties;
@@ -94,7 +96,7 @@ public class ConfigReader {
     }
 
     private static String toEnvironmentName(String key) {
-        return key.toUpperCase().replace('.', '_');
+        return ENVIRONMENT_PREFIX + key.toUpperCase().replace('.', '_');
     }
 
     private void loadFile(String resourcePath) {

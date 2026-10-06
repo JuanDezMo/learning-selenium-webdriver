@@ -34,6 +34,17 @@ Todo escenario SHALL llevar la etiqueta `@component` o `@e2e` y estar ubicado en
 - **WHEN** un escenario no lleva ninguna de las dos etiquetas
 - **THEN** la verificación del proyecto lo reporta como error
 
+### Requirement: Una aplicación por ejecución
+Cada ejecución SHALL correr los escenarios de una sola aplicación, elegida por configuración, de modo que los steps y la configuración de una aplicación no se mezclen con los de otra.
+
+#### Scenario: Aplicación por defecto
+- **WHEN** se ejecutan las pruebas sin indicar aplicación
+- **THEN** corren únicamente los escenarios de la aplicación por defecto
+
+#### Scenario: Otra aplicación
+- **WHEN** se ejecutan las pruebas indicando otra aplicación
+- **THEN** corren únicamente los escenarios de esa aplicación, aunque otra defina steps con el mismo texto
+
 ### Requirement: Ejecución selectiva por tipo
 El proyecto SHALL permitir ejecutar solo las pruebas de componente, solo las E2E o todas, mediante comandos de Gradle.
 

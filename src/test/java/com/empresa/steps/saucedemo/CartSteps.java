@@ -25,6 +25,12 @@ public class CartSteps {
         assertEquals("Your Cart", cartActions.getPageTitle());
     }
 
+    @Then("the cart is empty")
+    public void theCartIsEmpty() {
+        // El mensaje se arma solo si falla (con una función), para no esperar elementos que no existen
+        assertTrue(cartActions.isEmpty(), () -> "El carrito debería estar vacío y contiene: " + cartActions.getProductNames());
+    }
+
     @Then("the cart contains {string}")
     public void theCartContains(String productName) {
         assertTrue(cartActions.getProductNames().contains(productName),

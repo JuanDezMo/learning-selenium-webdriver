@@ -40,29 +40,29 @@ BrowserType     lista de navegadores soportados (chrome, firefox)
 Orden de prioridad (el primero que exista gana):
 
 1. Propiedad de sistema: `./gradlew test -Dbrowser=firefox`
-2. Variable de entorno: nombre en mayúsculas con `_` en lugar de `.` (por ejemplo `REMOTE_URL`)
+2. Variable de entorno: prefijo `TEST_`, nombre en mayúsculas y `_` en lugar de `.` (por ejemplo `TEST_REMOTE_URL`). El prefijo evita confundirse con variables del sistema ya existentes, como `BROWSER`
 3. Archivos en `src/test/resources/config/`: `default.properties`, luego `{app}.properties`, luego `{app}-{env}.properties`
 
 La aplicación se elige con `-Dapp` (por defecto `saucedemo`) y el ambiente con `-Denv` (por defecto `local`).
 
 ## Ejemplos
 
-Ejecutar solo los escenarios `@component` con Chrome sin ventana visible:
+Ejecutar solo los escenarios de componente con Chrome sin ventana visible:
 
 ```bash
-./gradlew test -Dheadless=true -Dcucumber.filter.tags=@component
+./gradlew componentTest -Dheadless=true
 ```
 
-Lo mismo con Firefox:
+Lo mismo con Firefox (ver el aviso sobre Firefox instalado con `snap` en "Problemas conocidos"):
 
 ```bash
-./gradlew test -Dheadless=true -Dbrowser=firefox -Dcucumber.filter.tags=@component
+./gradlew componentTest -Dheadless=true -Dbrowser=firefox
 ```
 
 Probar el mensaje de error de un servidor remoto inalcanzable (la prueba falla a propósito e indica la URL usada):
 
 ```bash
-./gradlew test -Dmode=remote -Dremote.url=http://localhost:1 -Dcucumber.filter.tags=@component
+./gradlew componentTest -Dmode=remote -Dremote.url=http://localhost:1
 ```
 
 Cambiar el tiempo máximo de espera a 20 segundos:
@@ -78,6 +78,12 @@ Cambiar el tiempo máximo de espera a 20 segundos:
 - `No se pudo crear la sesión en el servidor remoto de navegadores: <url>`: el servidor remoto no responde en esa URL.
 - `Falta la propiedad obligatoria 'base.url'...`: falta definir la propiedad en `config/` o con `-D`.
 - `El elemento By.id: x no fue visible después de N segundos`: una acción esperó el tiempo máximo y el elemento no apareció.
+
+## Problemas conocidos
+
+- **Firefox instalado con `snap` (el de Ubuntu por defecto):** el driver de Firefox no reconoce el comando `firefox` de `snap` como un ejecutable de Firefox y falla con `binary is not a Firefox executable`. Para usar Firefox hay que tener una instalación que no sea `snap` (por ejemplo el paquete de Mozilla); apuntar a la ruta interna del `snap` con `-Dwebdriver.firefox.bin` tampoco funcionó. En Docker (iteración 6) este problema no existe, porque el navegador viene en su propio contenedor. Chrome no tiene esta limitación.
+- **Chrome y el aviso "Cambia tu contraseña":** las credenciales públicas de demostración (por ejemplo las de saucedemo) figuran como filtradas, y Chrome muestra un aviso poco después del login que bloquea todos los clics y la escritura en la página, aunque no se vea en headless. Síntoma: las pruebas pasan el login y fallan después con tiempos de espera. `DriverFactory` ya desactiva el gestor de contraseñas de Chrome; no hay que hacer nada, pero si se agrega otra forma de crear Chrome, debe conservar esas preferencias.
+- **Una variable de entorno `BROWSER` en el sistema:** es un nombre muy común (por ejemplo `BROWSER=firefox`). Por eso las variables de entorno de esta base llevan el prefijo `TEST_` y esa variable se ignora.
 
 ## Esperas explícitas
 

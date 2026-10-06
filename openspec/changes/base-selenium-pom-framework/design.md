@@ -55,13 +55,16 @@ El wrapper fija la versión de Gradle en la máquina del dev, en el contenedor y
 ### 4. Motor de pruebas: JUnit 5 + Cucumber
 Cucumber corre sobre JUnit Platform con el motor de Cucumber y una suite que selecciona features y etiquetas. Los hooks de Cucumber (`Before`/`After`) abren y cierran el navegador y toman la captura; reemplazan a una clase base de test. El estado compartido entre steps se resuelve con inyección por constructor mediante PicoContainer, por ser lo más simple para un junior. Todos los escenarios están en Gherkin (componente y E2E) para tener un solo estilo; JUnit queda solo como motor.
 
-Etiquetas `@component` y `@e2e` más carpetas `features/<app>/component` y `features/<app>/e2e`. Tareas de Gradle `componentTest`, `e2eTest` y `test` (todas) filtran por etiqueta. Un chequeo de consistencia verifica que ningún escenario carezca de etiqueta de tipo.
+Etiquetas `@component` y `@e2e` más carpetas `features/<app>/component` y `features/<app>/e2e`. Tareas de Gradle `componentTest`, `e2eTest` y `test` (todas) filtran por etiqueta. La tarea `checkScenarioTags` (script `gradle/scenario-tags.gradle`) verifica que cada escenario tenga exactamente una etiqueta de tipo y que esté en la carpeta correspondiente; se ejecuta antes de cualquier tarea de pruebas.
+
+**Un runner y un paquete de steps por aplicación.** Cada aplicación tiene su runner `Run<Aplicacion>Test` (carpeta de features y paquete de steps propios, más los hooks comunes en `steps.common`). Se hizo así porque Cucumber falla con steps de igual texto en un mismo conjunto de steps, y porque la configuración se lee para una sola aplicación por ejecución. Gradle elige el runner con `-Dapp` (por defecto `saucedemo`) y excluye los de las demás. Alternativas descartadas: un único runner para todo (steps ambiguos y configuración mezclada) y etiquetar cada escenario con su aplicación (carga a quien escribe los escenarios).
 
 ### 5. Driver: local o remoto, un navegador por hilo desde el día uno
 `DriverManager` guarda el navegador en un `ThreadLocal` y decide local o remoto por configuración. En modo local se apoya en Selenium Manager (Selenium 4.x), sin gestionar binarios. En modo remoto usa `RemoteWebDriver` contra la URL configurada. Aunque el paralelismo se active en una iteración posterior, hacerlo desde el inicio casi no cuesta y evita reescribir después.
+Para Chrome se desactivan el gestor de contraseñas y la detección de credenciales filtradas: con credenciales públicas de demostración como las de saucedemo, Chrome muestra un aviso modal que bloquea toda la entrada a la página y rompe las pruebas poco después del login.
 
 ### 6. Configuración
-Archivos de propiedades por aplicación (`<app>.properties`) y ambiente, con sobrescritura por línea de comandos o variable de entorno. Un lector de configuración único. Las propiedades obligatorias que falten hacen fallar al inicio con un mensaje claro.
+Archivos de propiedades por aplicación (`<app>.properties`) y ambiente, con sobrescritura por línea de comandos o variable de entorno. Las variables de entorno llevan el prefijo `TEST_` (por ejemplo `TEST_BROWSER`) para no chocar con variables del sistema como `BROWSER`. Un lector de configuración único. Las propiedades obligatorias que falten hacen fallar al inicio con un mensaje claro.
 
 ### 7. Pruebas de componente frente a E2E sobre saucedemo
 - **Componente**: una pantalla o widget (login, inventario, carrito, formulario de checkout, menú). Estado previo por atajo cuando sea posible.
