@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample page</title>
+</head>
+<body>
+  <!-- Página de apoyo para probar las acciones básicas sin depender de internet -->
+  <input id="name" type="text">
+  <button id="btn" onclick="document.getElementById('msg').textContent = 'Clicked ' + document.getElementById('name').value">Send</button>
+  <p id="msg"></p>
+  <p id="hidden" style="display:none">Hidden</p>
+  <p id="late" style="display:none">Late</p>
+  <script>
+    // El elemento "late" aparece después de 800 ms, para probar la espera explícita
+    setTimeout(function () { document.getElementById('late').style.display = 'block'; }, 800);
+  </script>
+</body>
+</html>

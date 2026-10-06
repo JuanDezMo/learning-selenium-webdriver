@@ -22,13 +22,13 @@ Criterio de salida: `./gradlew test` ejecuta 1 escenario mínimo en verde, sin G
 
 Criterio de salida: `./gradlew test` abre y cierra Chrome en un escenario de prueba y las pruebas unitarias del driver y de las esperas pasan.
 
-- [ ] 2.1 Implementar `DriverManager` con un navegador por hilo (`ThreadLocal`), selección Chrome o Firefox por configuración, headless y cierre seguro; verificar con una prueba que abre y cierra el navegador y que dos hilos reciben instancias distintas
-- [ ] 2.2 Implementar el modo remoto (`RemoteWebDriver`) con la URL configurable y mensaje claro si no responde; verificar la rama con una prueba que apunta a una URL inválida y comprueba el mensaje
-- [ ] 2.3 Fallar antes de abrir ningún navegador cuando la configuración indique uno no soportado, listando los valores permitidos; verificar con prueba unitaria
-- [ ] 2.4 Implementar `BaseActions` con click, escribir, leer texto y estado de visibilidad usando esperas explícitas con tiempo máximo configurable y mensaje de fallo con localizador y tiempo; verificar con pruebas contra una página local o estable, incluido el caso de elemento que nunca aparece
-- [ ] 2.5 Agregar hooks de Cucumber que abran el navegador antes de cada escenario y lo cierren después, incluso si falla; verificar con un escenario que falla a propósito y comprobar que no quedan procesos de navegador
-- [ ] 2.6 Documentar en español el funcionamiento del driver y la configuración, con comentarios de código en español; verificar que los ejemplos de configuración de la documentación funcionan
-- [ ] 2.7 Avisar al usuario el cierre de la iteración 2 con el resultado del criterio de salida y detenerse para su commit
+- [x] 2.1 Implementar `DriverManager` con un navegador por hilo (`ThreadLocal`), selección Chrome o Firefox por configuración, headless y cierre seguro; verificar con una prueba que abre y cierra el navegador y que dos hilos reciben instancias distintas
+- [x] 2.2 Implementar el modo remoto (`RemoteWebDriver`) con la URL configurable y mensaje claro si no responde; verificar la rama con una prueba que apunta a una URL inválida y comprueba el mensaje
+- [x] 2.3 Fallar antes de abrir ningún navegador cuando la configuración indique uno no soportado, listando los valores permitidos; verificar con prueba unitaria
+- [x] 2.4 Implementar `BaseActions` con click, escribir, leer texto y estado de visibilidad usando esperas explícitas con tiempo máximo configurable y mensaje de fallo con localizador y tiempo; verificar con pruebas contra una página local o estable, incluido el caso de elemento que nunca aparece
+- [x] 2.5 Agregar hooks de Cucumber que abran el navegador antes de cada escenario y lo cierren después, incluso si falla; verificar con un escenario que falla a propósito y comprobar que no quedan procesos de navegador
+- [x] 2.6 Documentar en español el funcionamiento del driver y la configuración, con comentarios de código en español; verificar que los ejemplos de configuración de la documentación funcionan
+- [x] 2.7 Avisar al usuario el cierre de la iteración 2 con el resultado del criterio de salida y detenerse para su commit
 
 ## 3. Iteración 3: Login completo y guía del patrón
 

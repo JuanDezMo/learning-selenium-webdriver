@@ -32,13 +32,15 @@ Los valores se leen en este orden de prioridad (el primero que exista gana):
 
 La aplicación se elige con `-Dapp=<nombre>` (por defecto `saucedemo`) y el ambiente con `-Denv=<nombre>` (por defecto `local`).
 
+Más detalle del navegador, las propiedades disponibles y ejemplos en [docs/driver-y-configuracion.md](docs/driver-y-configuracion.md).
+
 ## Estructura
 
 ```
 src/test/java/com/empresa/
   config/    lectura de configuración
-  core/      acciones base y esperas (iteración 2)
-  driver/    manejo del navegador (iteración 2)
+  core/      acciones base con esperas explícitas
+  driver/    creación y cierre del navegador (uno por hilo)
   pages/     por aplicación: locators/ y actions/
   steps/     steps de Cucumber (delgados)
   runner/    punto de entrada de Cucumber
