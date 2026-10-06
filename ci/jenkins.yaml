@@ -8,6 +8,15 @@ jenkins:
 unclassified:
   location:
     url: "http://localhost:8080/"
+tool:
+  allure:
+    installations:
+      - name: "allure"
+        properties:
+          - installSource:
+              installers:
+                - allureCommandlineInstaller:
+                    id: "2.35.1"
 jobs:
   - script: >
       pipelineJob('pom-base-project') {

@@ -38,14 +38,8 @@ pipeline {
         always {
             // Los contenedores se detienen aunque las pruebas fallen
             sh 'docker compose down || true'
-            publishHTML(target: [
-                reportName: 'Allure Report',
-                reportDir: 'build/reports/allure-report/allureReport',
-                reportFiles: 'index.html',
-                keepAll: true,
-                alwaysLinkToLastBuild: true,
-                allowMissing: true
-            ])
+            // Reporte Allure con el plugin de Jenkins (herramienta "allure" definida en ci/jenkins.yaml)
+            allure includeProperties: false, jdk: '', results: [[path: 'build/allure-results']]
             archiveArtifacts artifacts: 'build/allure-results/**', allowEmptyArchive: true
         }
     }

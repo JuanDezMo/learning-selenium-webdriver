@@ -2,4 +2,4 @@ workflow-aggregator
 git
 configuration-as-code
 job-dsl
-htmlpublisher
+allure-jenkins-plugin

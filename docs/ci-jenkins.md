@@ -33,7 +33,7 @@ El pipeline corre `docker compose up` con el `docker-compose.yml` del proyecto (
 ## Ver resultados
 
 - Estado y log: la página del build (*Console Output*).
-- Reporte Allure: enlace **Allure Report** en la página del job o del build. Se publica siempre, también cuando hay fallos (con la captura del escenario fallido).
+- Reporte Allure: enlace **Allure Report** (plugin `allure-jenkins-plugin`) en la página del job o del build, con tendencias entre ejecuciones. Se publica siempre, también cuando hay fallos (con la captura del escenario fallido).
 - Resultados crudos de Allure: artefactos del build.
 
 ## Cómo funciona (y qué tener presente)
@@ -45,6 +45,7 @@ El pipeline corre `docker compose up` con el `docker-compose.yml` del proyecto (
 
 ## Problemas conocidos
 
+- La herramienta Allure (versión 2.35.1) se descarga sola la primera vez que se genera un reporte; necesita internet. Su definición está en `ci/jenkins.yaml`.
 - `Checkout ... aborted because it references a local directory`: ya está permitido con `-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true` en `docker-compose.ci.yml`.
 - El build falla antes de las pruebas por permisos del docker.sock: revisa `DOCKER_GID`.
 - Si el puerto 4444 está ocupado por otro Compose del proyecto, detenlo (`docker compose down`).
