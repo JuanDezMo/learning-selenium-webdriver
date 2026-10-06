@@ -23,6 +23,6 @@ import org.junit.platform.suite.api.Suite;
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features/saucedemo")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "com.empresa.steps.common,com.empresa.steps.saucedemo")
-@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty, io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm")
 public class RunSaucedemoTest {
 }

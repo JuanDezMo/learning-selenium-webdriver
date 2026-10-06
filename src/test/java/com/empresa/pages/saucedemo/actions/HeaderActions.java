@@ -6,6 +6,7 @@ import static com.empresa.pages.saucedemo.locators.HeaderLocators.LOGOUT_LINK;
 import static com.empresa.pages.saucedemo.locators.HeaderLocators.MENU_BUTTON;
 
 import com.empresa.core.BaseActions;
+import io.qameta.allure.Step;
 
 /**
  * Acciones de la cabecera compartida: contador del carrito, abrir el carrito y menú lateral.
@@ -23,11 +24,13 @@ public class HeaderActions extends BaseActions {
         return waitUntilGone(CART_BADGE);
     }
 
+    @Step("Open the cart")
     public void openCart() {
         click(CART_LINK);
     }
 
     /** Abre el menú lateral y elige cerrar sesión. */
+    @Step("Log out from the menu")
     public void logout() {
         click(MENU_BUTTON);
         click(LOGOUT_LINK);

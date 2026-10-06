@@ -5,6 +5,7 @@ import static com.empresa.pages.saucedemo.locators.CartLocators.ITEM_NAMES;
 import static com.empresa.pages.saucedemo.locators.CartLocators.PAGE_TITLE;
 
 import com.empresa.core.BaseActions;
+import io.qameta.allure.Step;
 import java.util.List;
 
 /** Acciones de la pantalla del carrito. Abrir el carrito es una acción de la cabecera (HeaderActions). */
@@ -26,6 +27,7 @@ public class CartActions extends BaseActions {
     }
 
     /** Presiona Checkout para pasar al formulario de datos. */
+    @Step("Start the checkout")
     public void startCheckout() {
         click(CHECKOUT_BUTTON);
     }

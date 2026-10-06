@@ -42,7 +42,7 @@ Mientras corre la ejecución abre <http://localhost:7900> (noVNC, sin contraseñ
 
 ## Resultados y caché
 
-- **Resultados**: el proyecto se monta dentro del contenedor, así que `build/test-results/` y los reportes quedan en tu carpeta del proyecto, con tu usuario (no `root`).
+- **Resultados**: el proyecto se monta dentro del contenedor, así que `build/test-results/`, `build/allure-results/` y el reporte Allure (`build/reports/allure-report/`, ver [reportes-allure.md](reportes-allure.md)) quedan en tu carpeta del proyecto, con tu usuario (no `root`).
 - **Caché**: el volumen `gradle-cache` guarda las dependencias y la distribución de Gradle. La primera ejecución descarga (~1 min); las siguientes no descargan nada.
 - Gradle no repite pruebas cuyo código no cambió. Para forzar la repetición: `TEST_TASK="componentTest --rerun" docker compose up --abort-on-container-exit --exit-code-from runner`.
 

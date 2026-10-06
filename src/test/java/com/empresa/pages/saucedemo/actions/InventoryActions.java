@@ -8,6 +8,7 @@ import static com.empresa.pages.saucedemo.locators.InventoryLocators.addToCartBu
 import static com.empresa.pages.saucedemo.locators.InventoryLocators.removeButton;
 
 import com.empresa.core.BaseActions;
+import io.qameta.allure.Step;
 import java.util.List;
 
 /** Acciones de la pantalla de inventario (lista de productos). */
@@ -19,6 +20,7 @@ public class InventoryActions extends BaseActions {
     }
 
     /** Ordena los productos con la opción indicada, por ejemplo "Price (low to high)". */
+    @Step("Sort the products by {optionText}")
     public void sortBy(String optionText) {
         selectByVisibleText(SORT_DROPDOWN, optionText);
     }
@@ -35,10 +37,12 @@ public class InventoryActions extends BaseActions {
         return getTexts(PRODUCT_NAMES);
     }
 
+    @Step("Add {productName} to the cart")
     public void addToCart(String productName) {
         click(addToCartButton(productName));
     }
 
+    @Step("Remove {productName} from the cart")
     public void removeFromCart(String productName) {
         click(removeButton(productName));
     }

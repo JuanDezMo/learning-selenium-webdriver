@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.12.0'
 }
 
 // Versiones fijadas en un solo lugar para que sean fáciles de actualizar
@@ -8,6 +9,7 @@ ext {
     cucumberVersion = '7.34.9'
     junitVersion    = '5.14.4'
     slf4jVersion    = '2.0.17'
+    allureVersion   = '2.35.5'
 }
 
 group = 'com.empresa'
@@ -37,6 +39,22 @@ dependencies {
 
     testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
     testRuntimeOnly "org.slf4j:slf4j-simple:${slf4jVersion}"
+
+    testImplementation "io.qameta.allure:allure-cucumber7-jvm:${allureVersion}"
+}
+
+// Reporte Allure: los resultados quedan en build/allure-results y el reporte HTML en build/reports/allure-report
+allure {
+    adapter {
+        // El adaptador de Cucumber se declara arriba; aquí solo se fija la versión de Allure
+        autoconfigure = false
+        aspectjWeaver = true
+    }
+}
+
+// Cada reporte se genera desde cero (Allure se niega a sobrescribir una carpeta existente)
+tasks.matching { it.name == 'allureReport' }.configureEach {
+    doFirst { delete layout.buildDirectory.dir('reports/allure-report') }
 }
 
 // Chequeo de que cada escenario tenga la etiqueta @component o @e2e
@@ -57,6 +75,8 @@ tasks.withType(Test).configureEach {
     otherRunners.each { exclude "**/${it}.class" }
     // Antes de ejecutar nada se valida que los escenarios estén bien etiquetados
     dependsOn 'checkScenarioTags'
+    // Cada ejecución empieza con resultados de Allure limpios para no mezclar corridas
+    doFirst { delete layout.buildDirectory.dir('allure-results') }
     // Muestra el resultado de cada prueba en la consola
     testLogging {
         events 'passed', 'failed', 'skipped'

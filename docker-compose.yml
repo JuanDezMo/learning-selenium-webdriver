@@ -27,7 +27,8 @@ services:
       selenium:
         condition: service_healthy
     # TEST_TASK permite cambiar la tarea: componentTest (por defecto), e2eTest o test
-    command: ["sh", "-c", "./gradlew ${TEST_TASK:-componentTest} -Denv=docker"]
+    # El reporte Allure se genera siempre, también si las pruebas fallan; el código de salida es el de las pruebas
+    command: ["sh", "-c", "./gradlew ${TEST_TASK:-componentTest} -Denv=docker; code=$$?; ./gradlew allureReport; exit $$code"]
 
 volumes:
   gradle-cache:

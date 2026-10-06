@@ -9,11 +9,13 @@ import static com.empresa.pages.saucedemo.locators.CheckoutLocators.LAST_NAME_IN
 import static com.empresa.pages.saucedemo.locators.CheckoutLocators.POSTAL_CODE_INPUT;
 
 import com.empresa.core.BaseActions;
+import io.qameta.allure.Step;
 
 /** Acciones del checkout: formulario de datos, resumen del pedido y confirmación. */
 public class CheckoutActions extends BaseActions {
 
     /** Llena el formulario y presiona Continue. Cualquier campo puede ir vacío (cadena vacía). */
+    @Step("Fill the checkout information and continue")
     public void fillInformationAndContinue(String firstName, String lastName, String postalCode) {
         type(FIRST_NAME_INPUT, firstName);
         type(LAST_NAME_INPUT, lastName);
@@ -27,6 +29,7 @@ public class CheckoutActions extends BaseActions {
     }
 
     /** En el resumen del pedido, presiona Finish para confirmar la compra. */
+    @Step("Finish the purchase")
     public void finishPurchase() {
         click(FINISH_BUTTON);
     }

@@ -77,12 +77,12 @@ Criterio de salida: un solo comando de Compose ejecuta un escenario `@component`
 
 Criterio de salida: tras una ejecución, el reporte Allure se genera con escenarios, steps y una captura adjunta en un fallo provocado.
 
-- [ ] 7.1 Agregar el plugin de Gradle de Allure y el adaptador de Cucumber con versiones compatibles y verificar que una ejecución genera resultados en el directorio esperado
-- [ ] 7.2 Agregar el comando de Gradle para generar y consultar el reporte HTML; verificar que el reporte muestra escenarios y sus steps en orden
-- [ ] 7.3 Anotar las acciones de negocio con pasos de Allure; verificar que el reporte muestra los pasos relevantes de una prueba aprobada
-- [ ] 7.4 Tomar la captura de pantalla en el hook posterior al escenario solo si falló, con el navegador del hilo actual, y adjuntarla una sola vez; verificar con un escenario que falla a propósito (con captura) y con uno aprobado (sin captura)
-- [ ] 7.5 Clasificar los escenarios por `@component` y `@e2e` en el reporte; verificar que se pueden filtrar
-- [ ] 7.6 Verificar que el reporte generado en contenedores queda en el host y documentar en español cómo generarlo y consultarlo en local y en contenedores
+- [x] 7.1 Agregar el plugin de Gradle de Allure y el adaptador de Cucumber con versiones compatibles y verificar que una ejecución genera resultados en el directorio esperado
+- [x] 7.2 Agregar el comando de Gradle para generar y consultar el reporte HTML; verificar que el reporte muestra escenarios y sus steps en orden
+- [x] 7.3 Anotar las acciones de negocio con pasos de Allure; verificar que el reporte muestra los pasos relevantes de una prueba aprobada
+- [x] 7.4 Tomar la captura de pantalla en el hook posterior al escenario solo si falló, con el navegador del hilo actual, y adjuntarla una sola vez; verificar con un escenario que falla a propósito (con captura) y con uno aprobado (sin captura)
+- [x] 7.5 Clasificar los escenarios por `@component` y `@e2e` en el reporte; verificar que se pueden filtrar
+- [x] 7.6 Verificar que el reporte generado en contenedores queda en el host y documentar en español cómo generarlo y consultarlo en local y en contenedores
 - [ ] 7.7 Avisar al usuario el cierre de la iteración 7 con el resultado del criterio de salida y detenerse para su commit
 
 ## 8. Iteración 8: Paralelismo

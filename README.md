@@ -46,6 +46,15 @@ docker compose up --build --abort-on-container-exit --exit-code-from runner
 
 Corre los escenarios `@component` con el navegador en un contenedor y deja los resultados en `build/`. Detalle, ver el navegador remoto y cuándo usar local o contenedores: [docs/docker-y-contenedores.md](docs/docker-y-contenedores.md).
 
+## Reporte Allure
+
+```bash
+./gradlew componentTest
+./gradlew allureServe
+```
+
+Detalle (HTML, contenedores, capturas, filtros por tipo): [docs/reportes-allure.md](docs/reportes-allure.md).
+
 ## Guía del patrón
 
 Cómo está organizado el código (Page Object Model en dos capas, reglas SOLID básicas y reglas de idioma): [docs/guia-patron-pom.md](docs/guia-patron-pom.md). **Léela antes de agregar código.**
