@@ -89,11 +89,11 @@ Criterio de salida: tras una ejecución, el reporte Allure se genera con escenar
 
 Criterio de salida: la suite completa en paralelo con 2 o más hilos da los mismos resultados por escenario que en secuencial.
 
-- [ ] 8.1 Habilitar la ejecución de escenarios en paralelo con configuración de activación y número de hilos; verificar que con paralelismo desactivado corren de uno en uno y con él activado corren concurrentemente
-- [ ] 8.2 Revisar que no exista estado compartido entre escenarios (variables estáticas, datos mutables, sesión) y corregirlo; verificar con una prueba de dos escenarios concurrentes que no se afectan
-- [ ] 8.3 Verificar que capturas y pasos de Allure se asocian al escenario correcto en paralelo, con un fallo provocado mientras otros corren
-- [ ] 8.4 Comparar resultados por escenario entre ejecución secuencial y paralela de la suite completa y verificar que son equivalentes
-- [ ] 8.5 Documentar en español cómo activar el paralelismo, el número de hilos recomendado y las reglas para escribir pasos sin estado compartido
+- [x] 8.1 Habilitar la ejecución de escenarios en paralelo con configuración de activación y número de hilos; verificar que con paralelismo desactivado corren de uno en uno y con él activado corren concurrentemente
+- [x] 8.2 Revisar que no exista estado compartido entre escenarios (variables estáticas, datos mutables, sesión) y corregirlo; verificar con una prueba de dos escenarios concurrentes que no se afectan
+- [x] 8.3 Verificar que capturas y pasos de Allure se asocian al escenario correcto en paralelo, con un fallo provocado mientras otros corren
+- [x] 8.4 Comparar resultados por escenario entre ejecución secuencial y paralela de la suite completa y verificar que son equivalentes
+- [x] 8.5 Documentar en español cómo activar el paralelismo, el número de hilos recomendado y las reglas para escribir pasos sin estado compartido
 - [ ] 8.6 Avisar al usuario el cierre de la iteración 8 con el resultado del criterio de salida y detenerse para su commit
 
 ## 9. Iteración 9: Selenium Grid

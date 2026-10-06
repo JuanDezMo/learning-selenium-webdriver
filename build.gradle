@@ -63,6 +63,9 @@ apply from: 'gradle/scenario-tags.gradle'
 // Aplicación a probar: -Dapp=<nombre> (por defecto saucedemo). Cada aplicación tiene su runner
 // com.empresa.runner.Run<Aplicacion>Test y solo se ejecuta el de la aplicación elegida.
 def selectedApp = (gradle.startParameter.systemPropertiesArgs['app'] ?: 'saucedemo').toLowerCase()
+// Paralelismo: -Dparallel=true activa la ejecución concurrente de escenarios y -Dthreads=N fija los hilos (por defecto 2)
+def parallelEnabled = (gradle.startParameter.systemPropertiesArgs['parallel'] ?: 'false').toBoolean()
+def parallelThreads = gradle.startParameter.systemPropertiesArgs['threads'] ?: '2'
 def selectedRunner = "Run${selectedApp.capitalize()}Test"
 def otherRunners = fileTree('src/test/java/com/empresa/runner').matching { include 'Run*Test.java' }
         .files.collect { it.name - '.java' }.findAll { it != selectedRunner }
@@ -71,6 +74,13 @@ tasks.withType(Test).configureEach {
     useJUnitPlatform()
     // Pasa a las pruebas los -D indicados en la línea de comandos (por ejemplo -Dbrowser=firefox)
     systemProperties(gradle.startParameter.systemPropertiesArgs)
+    // Paralelismo a nivel de escenario (Cucumber sobre JUnit Platform)
+    if (parallelEnabled) {
+        systemProperty 'cucumber.execution.parallel.enabled', 'true'
+        systemProperty 'cucumber.execution.parallel.config.strategy', 'fixed'
+        systemProperty 'cucumber.execution.parallel.config.fixed.parallelism', parallelThreads
+        systemProperty 'cucumber.execution.parallel.config.fixed.max-pool-size', parallelThreads
+    }
     // Solo corre el runner de la aplicación elegida
     otherRunners.each { exclude "**/${it}.class" }
     // Antes de ejecutar nada se valida que los escenarios estén bien etiquetados

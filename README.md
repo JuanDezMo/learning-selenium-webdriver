@@ -55,6 +55,14 @@ Corre los escenarios `@component` con el navegador en un contenedor y deja los r
 
 Detalle (HTML, contenedores, capturas, filtros por tipo): [docs/reportes-allure.md](docs/reportes-allure.md).
 
+## Paralelismo
+
+```bash
+./gradlew test -Dparallel=true -Dthreads=3
+```
+
+Desactivado por defecto. Detalle y reglas para los steps: [docs/paralelismo.md](docs/paralelismo.md).
+
 ## Guía del patrón
 
 Cómo está organizado el código (Page Object Model en dos capas, reglas SOLID básicas y reglas de idioma): [docs/guia-patron-pom.md](docs/guia-patron-pom.md). **Léela antes de agregar código.**
