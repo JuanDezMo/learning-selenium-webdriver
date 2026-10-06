@@ -46,6 +46,14 @@ docker compose up --build --abort-on-container-exit --exit-code-from runner
 
 Corre los escenarios `@component` con el navegador en un contenedor y deja los resultados en `build/`. Detalle, ver el navegador remoto y cuándo usar local o contenedores: [docs/docker-y-contenedores.md](docs/docker-y-contenedores.md).
 
+## Selenium Grid
+
+```bash
+docker compose -f docker-compose.grid.yml up --build --abort-on-container-exit --exit-code-from runner
+```
+
+Hub + nodos de Chrome con la suite en paralelo. Detalle y cómo escalar nodos: [docs/selenium-grid.md](docs/selenium-grid.md).
+
 ## Reporte Allure
 
 ```bash

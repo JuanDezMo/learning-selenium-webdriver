@@ -1,0 +1,56 @@
+# Selenium Grid: un hub y varios nodos de Chrome (cada nodo atiende una sesión a la vez).
+# Las sesiones del paralelismo se reparten entre los nodos.
+# Comando único:
+#   docker compose -f docker-compose.grid.yml up --build --abort-on-container-exit --exit-code-from runner
+# Más nodos:  GRID_NODES=3 docker compose -f docker-compose.grid.yml up ...   (nodos y hilos a la vez)
+services:
+  selenium-hub:
+    image: selenium/hub:latest
+    ports:
+      - "4444:4444"   # API de Selenium y consola del Grid en http://localhost:4444/ui
+    healthcheck:
+      test: ["CMD", "/opt/bin/check-grid.sh", "--host", "0.0.0.0", "--port", "4444"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  chrome-node:
+    image: selenium/node-chrome:latest
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: "4442"
+      SE_EVENT_BUS_SUBSCRIBE_PORT: "4443"
+      SE_NODE_MAX_SESSIONS: "1"
+      SE_NODE_OVERRIDE_MAX_SESSIONS: "true"
+    deploy:
+      replicas: ${GRID_NODES:-2}
+
+  runner:
+    build: ./docker
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - gradle-cache:/gradle-cache
+    depends_on:
+      selenium-hub:
+        condition: service_healthy
+    # Espera a que se registren GRID_NODES nodos y corre la suite en paralelo (un hilo por nodo)
+    # TEST_TASK cambia la tarea (componentTest por defecto). El reporte Allure se genera siempre.
+    command:
+      - sh
+      - -c
+      - |
+        until [ "$$(curl -s http://selenium-hub:4444/status | grep -o '"availability": *"UP"' | wc -l)" -ge ${GRID_NODES:-2} ]; do
+          echo "Esperando nodos del Grid..."; sleep 2
+        done
+        ./gradlew ${TEST_TASK:-componentTest} -Denv=grid -Dparallel=true -Dthreads=${GRID_NODES:-2}
+        code=$$?
+        ./gradlew allureReport
+        exit $$code
+
+volumes:
+  gradle-cache:

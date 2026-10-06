@@ -100,10 +100,10 @@ Criterio de salida: la suite completa en paralelo con 2 o más hilos da los mism
 
 Criterio de salida: la suite corre en paralelo contra un Grid con 2 o más nodos y las sesiones se reparten entre ellos.
 
-- [ ] 9.1 Agregar a Compose la topología con hub y varios nodos de navegador y verificar que el hub reporta los nodos registrados
-- [ ] 9.2 Apuntar el modo remoto del driver al hub mediante configuración y verificar que una prueba corre en el Grid
-- [ ] 9.3 Ejecutar la suite en paralelo contra el Grid y verificar que cada hilo recibe una sesión independiente y que las sesiones se distribuyen entre nodos
-- [ ] 9.4 Documentar en español cómo levantar el Grid, escalar nodos y apuntar las pruebas; verificar ejecutando los comandos tal como están escritos
+- [x] 9.1 Agregar a Compose la topología con hub y varios nodos de navegador y verificar que el hub reporta los nodos registrados
+- [x] 9.2 Apuntar el modo remoto del driver al hub mediante configuración y verificar que una prueba corre en el Grid
+- [x] 9.3 Ejecutar la suite en paralelo contra el Grid y verificar que cada hilo recibe una sesión independiente y que las sesiones se distribuyen entre nodos
+- [x] 9.4 Documentar en español cómo levantar el Grid, escalar nodos y apuntar las pruebas; verificar ejecutando los comandos tal como están escritos
 - [ ] 9.5 Avisar al usuario el cierre de la iteración 9 con el resultado del criterio de salida y detenerse para su commit
 
 ## 10. Iteración 10: Jenkins local en contenedores

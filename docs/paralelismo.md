@@ -41,4 +41,4 @@ Recomendación: **2 o 3 hilos** en un equipo de desarrollo, y no más hilos que 
 
 ## Con navegador remoto
 
-Cada hilo pide su propia sesión al servidor remoto. El navegador único de `docker-compose.yml` atiende **una sesión a la vez** por defecto, así que ahí el paralelismo no acelera nada; para sesiones simultáneas se usa Selenium Grid (iteración 9).
+Cada hilo pide su propia sesión al servidor remoto. El navegador único de `docker-compose.yml` atiende **una sesión a la vez** por defecto, así que ahí el paralelismo no acelera nada; para sesiones simultáneas se usa Selenium Grid (ver [selenium-grid.md](selenium-grid.md)).
