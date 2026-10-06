@@ -47,22 +47,22 @@ La aplicación se elige con `-Dapp` (por defecto `saucedemo`) y el ambiente con 
 
 ## Ejemplos
 
-Ejecutar solo los escenarios `@smoke` con Chrome sin ventana visible:
+Ejecutar solo los escenarios `@component` con Chrome sin ventana visible:
 
 ```bash
-./gradlew test -Dheadless=true -Dcucumber.filter.tags=@smoke
+./gradlew test -Dheadless=true -Dcucumber.filter.tags=@component
 ```
 
 Lo mismo con Firefox:
 
 ```bash
-./gradlew test -Dheadless=true -Dbrowser=firefox -Dcucumber.filter.tags=@smoke
+./gradlew test -Dheadless=true -Dbrowser=firefox -Dcucumber.filter.tags=@component
 ```
 
 Probar el mensaje de error de un servidor remoto inalcanzable (la prueba falla a propósito e indica la URL usada):
 
 ```bash
-./gradlew test -Dmode=remote -Dremote.url=http://localhost:1 -Dcucumber.filter.tags=@smoke
+./gradlew test -Dmode=remote -Dremote.url=http://localhost:1 -Dcucumber.filter.tags=@component
 ```
 
 Cambiar el tiempo máximo de espera a 20 segundos:

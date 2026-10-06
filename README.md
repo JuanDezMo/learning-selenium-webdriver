@@ -34,6 +34,10 @@ La aplicación se elige con `-Dapp=<nombre>` (por defecto `saucedemo`) y el ambi
 
 Más detalle del navegador, las propiedades disponibles y ejemplos en [docs/driver-y-configuracion.md](docs/driver-y-configuracion.md).
 
+## Guía del patrón
+
+Cómo está organizado el código (Page Object Model en dos capas, reglas SOLID básicas y reglas de idioma): [docs/guia-patron-pom.md](docs/guia-patron-pom.md). **Léela antes de agregar código.**
+
 ## Estructura
 
 ```

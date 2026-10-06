@@ -34,12 +34,12 @@ Criterio de salida: `./gradlew test` abre y cierra Chrome en un escenario de pru
 
 Criterio de salida: `./gradlew test` ejecuta los 3 escenarios `@component` de login en verde y la guía del patrón existe.
 
-- [ ] 3.1 Escribir la guía del patrón en español (`docs/`) que empieza con la nota del POM tradicional frente a la separación Locators y Actions, el diagrama de dependencias entre capas, las reglas SOLID básicas (S, O, D) y la regla de idiomas; verificar que la nota inicial es lo primero que aparece
-- [ ] 3.2 Implementar `LoginLocators` y `LoginActions` y verificar con una prueba que `login()` lleva a la lista de productos con un usuario válido
-- [ ] 3.3 Escribir los steps y los escenarios `@component` de login (válido, usuario bloqueado, campos vacíos) y verificar que los 3 pasan
-- [ ] 3.4 Crear el step reutilizable `Given the user is logged in as "<user>"` que llama a `LoginActions.login()`; verificar que un escenario de prueba lo usa como precondición sin repetir pasos de login
-- [ ] 3.5 Mover usuarios y datos de prueba a configuración o archivo de datos fuera de los steps; verificar que cambiar un usuario requiere editar un solo lugar
-- [ ] 3.6 Avisar al usuario el cierre de la iteración 3 con el resultado del criterio de salida y detenerse para su commit
+- [x] 3.1 Escribir la guía del patrón en español (`docs/`) que empieza con la nota del POM tradicional frente a la separación Locators y Actions, el diagrama de dependencias entre capas, las reglas SOLID básicas (S, O, D) y la regla de idiomas; verificar que la nota inicial es lo primero que aparece
+- [x] 3.2 Implementar `LoginLocators` y `LoginActions` y verificar con una prueba que `login()` lleva a la lista de productos con un usuario válido
+- [x] 3.3 Escribir los steps y los escenarios `@component` de login (válido, usuario bloqueado, campos vacíos) y verificar que los 3 pasan
+- [x] 3.4 Crear el step reutilizable `Given the user is logged in as "<user>"` que llama a `LoginActions.login()`; verificar que un escenario de prueba lo usa como precondición sin repetir pasos de login
+- [x] 3.5 Mover usuarios y datos de prueba a configuración o archivo de datos fuera de los steps; verificar que cambiar un usuario requiere editar un solo lugar
+- [x] 3.6 Avisar al usuario el cierre de la iteración 3 con el resultado del criterio de salida y detenerse para su commit
 
 ## 4. Iteración 4: Inventario, carrito, checkout y menú
 
