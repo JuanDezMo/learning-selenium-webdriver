@@ -1,0 +1,19 @@
+# Gradle
+.gradle/
+build/
+
+# IDEs
+.idea/
+*.iml
+out/
+.vscode/
+.classpath
+.project
+.settings/
+
+# Reportes y resultados de pruebas
+allure-results/
+allure-report/
+
+# Sistema operativo
+.DS_Store

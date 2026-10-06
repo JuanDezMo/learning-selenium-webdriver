@@ -1,0 +1,16 @@
+schema: spec-driven
+
+context: |
+  Project: base framework for web functional tests (Selenium WebDriver, Java 21,
+  Gradle, JUnit 5 + Cucumber, Allure, Docker, Jenkins).
+  Language rules:
+  - Everything that is code is written in English: class/method/variable names,
+    Gherkin (.feature) files and step texts (Given/When/Then).
+  - Code comments and technical documentation are written in Spanish.
+  - OpenSpec artifacts (proposal, design, specs, tasks) are written in Spanish.
+  Architecture: .feature -> Steps -> Actions -> Locators, with Core and Driver below.
+  Keep SOLID principles basic (S, O, D); the team has a junior Java level.
+
+rules:
+  tasks:
+    - Break work into small iterations that can be validated independently
