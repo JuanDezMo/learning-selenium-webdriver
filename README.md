@@ -54,6 +54,14 @@ docker compose -f docker-compose.grid.yml up --build --abort-on-container-exit -
 
 Hub + nodos de Chrome con la suite en paralelo. Detalle y cómo escalar nodos: [docs/selenium-grid.md](docs/selenium-grid.md).
 
+## CI local con Jenkins
+
+```bash
+DOCKER_GID=$(getent group docker | cut -d: -f3) docker compose -f docker-compose.ci.yml up -d --build
+```
+
+Jenkins en http://localhost:8080 con el pipeline del `Jenkinsfile`. Detalle: [docs/ci-jenkins.md](docs/ci-jenkins.md).
+
 ## Reporte Allure
 
 ```bash

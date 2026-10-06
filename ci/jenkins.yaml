@@ -1,0 +1,26 @@
+# Configuración precargada de Jenkins (Configuration as Code). Solo para uso LOCAL:
+# no hay usuarios ni contraseñas; Jenkins solo se publica en localhost.
+jenkins:
+  systemMessage: "Jenkins local del proyecto pom-base-project"
+  numExecutors: 1
+  securityRealm: "none"
+  authorizationStrategy: "unsecured"
+unclassified:
+  location:
+    url: "http://localhost:8080/"
+jobs:
+  - script: >
+      pipelineJob('pom-base-project') {
+        description('Ejecuta la suite en contenedores. El pipeline vive en el Jenkinsfile del repositorio.')
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote { url('file:///repo') }
+                branch('*/master')
+              }
+            }
+            scriptPath('Jenkinsfile')
+          }
+        }
+      }

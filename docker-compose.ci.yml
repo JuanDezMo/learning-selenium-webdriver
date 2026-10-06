@@ -1,0 +1,42 @@
+# Jenkins local en contenedor. Solo para desarrollo local.
+# Arranque (desde la raíz del proyecto):  docker compose -f docker-compose.ci.yml up -d --build
+# URL: http://localhost:8080
+#
+# Jenkins usa el Docker del anfitrión (socket). Por eso la carpeta de trabajo de los jobs se monta con
+# la MISMA ruta dentro y fuera del contenedor: así los volúmenes que el pipeline pide a Docker
+# apuntan a archivos reales del anfitrión.
+services:
+  workspace-init:
+    image: alpine:3
+    volumes:
+      - ${CI_WORKSPACE:-/tmp/pom-jenkins-workspace}:${CI_WORKSPACE:-/tmp/pom-jenkins-workspace}
+    command: chown -R 1000:1000 ${CI_WORKSPACE:-/tmp/pom-jenkins-workspace}
+
+  jenkins:
+    build: ./ci
+    ports:
+      - "127.0.0.1:8080:8080"   # solo accesible desde esta máquina
+    group_add:
+      - "${DOCKER_GID:-998}"    # grupo docker del anfitrión (getent group docker)
+    environment:
+      JAVA_OPTS: >-
+        -Djenkins.install.runSetupWizard=false
+        -Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true
+        -Djenkins.model.Jenkins.workspacesDir=${CI_WORKSPACE:-/tmp/pom-jenkins-workspace}/$${ITEM_FULL_NAME}
+        -Dhudson.model.DirectoryBrowserSupport.CSP=
+    volumes:
+      - jenkins-home:/var/jenkins_home                                  # historial y configuración persistentes
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${REPO_PATH:-${PWD}}:/repo:ro                                   # repositorio del que Jenkins lee el pipeline
+      - ${CI_WORKSPACE:-/tmp/pom-jenkins-workspace}:${CI_WORKSPACE:-/tmp/pom-jenkins-workspace}
+    depends_on:
+      workspace-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/login > /dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  jenkins-home:

@@ -110,12 +110,12 @@ Criterio de salida: la suite corre en paralelo contra un Grid con 2 o más nodos
 
 Criterio de salida: Jenkins local ejecuta el pipeline versionado, falla ante un escenario fallido y publica el reporte Allure.
 
-- [ ] 10.1 Crear la definición de Jenkins en contenedor con configuración precargada y volumen persistente; verificar que `docker compose up` deja Jenkins accesible en la URL local documentada
-- [ ] 10.2 Escribir el `Jenkinsfile` versionado con parámetro de tipo de prueba (componente, E2E o ambas); verificar que Jenkins lo toma del repositorio y que un cambio en él se refleja en la siguiente ejecución
-- [ ] 10.3 Hacer que el pipeline ejecute la suite en contenedores y falle si algún escenario falla; verificar con una corrida exitosa y con una fallida provocada
-- [ ] 10.4 Publicar el reporte Allure en cada ejecución, incluso con fallos; verificar que se consulta desde Jenkins en ambos casos
-- [ ] 10.5 Revisar que ningún archivo del CI contenga credenciales reales y verificarlo con una búsqueda de contraseñas y tokens en el repositorio
-- [ ] 10.6 Documentar en español cómo levantar el CI, lanzar el pipeline y consultar resultados; verificar siguiendo la guía desde cero
+- [x] 10.1 Crear la definición de Jenkins en contenedor con configuración precargada y volumen persistente; verificar que `docker compose up` deja Jenkins accesible en la URL local documentada
+- [x] 10.2 Escribir el `Jenkinsfile` versionado con parámetro de tipo de prueba (componente, E2E o ambas); verificar que Jenkins lo toma del repositorio y que un cambio en él se refleja en la siguiente ejecución
+- [x] 10.3 Hacer que el pipeline ejecute la suite en contenedores y falle si algún escenario falla; verificar con una corrida exitosa y con una fallida provocada
+- [x] 10.4 Publicar el reporte Allure en cada ejecución, incluso con fallos; verificar que se consulta desde Jenkins en ambos casos
+- [x] 10.5 Revisar que ningún archivo del CI contenga credenciales reales y verificarlo con una búsqueda de contraseñas y tokens en el repositorio
+- [x] 10.6 Documentar en español cómo levantar el CI, lanzar el pipeline y consultar resultados; verificar siguiendo la guía desde cero
 - [ ] 10.7 Avisar al usuario el cierre de la iteración 10 con el resultado del criterio de salida y detenerse para su commit
 
 ## 11. Verificación integral

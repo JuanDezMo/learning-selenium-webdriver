@@ -106,3 +106,12 @@ tasks.withType(Test).configureEach {
         systemProperty 'cucumber.filter.tags', "@${type}"
     }
 }
+
+// functionalTest: todos los escenarios (componente y E2E) de la aplicación elegida, sin pruebas unitarias
+tasks.register('functionalTest', Test) {
+    group = 'verification'
+    description = 'Ejecuta todos los escenarios (@component y @e2e) de la aplicación elegida (-Dapp)'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    include '**/Run*Test.class'
+}
