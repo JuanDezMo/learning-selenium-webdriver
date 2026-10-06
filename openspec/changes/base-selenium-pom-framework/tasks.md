@@ -45,12 +45,12 @@ Criterio de salida: `./gradlew test` ejecuta los 3 escenarios `@component` de lo
 
 Criterio de salida: `./gradlew test` ejecuta en verde todos los escenarios `@component` de inventario, carrito, checkout y menú.
 
-- [ ] 4.1 Implementar localizadores, acciones y steps de inventario; verificar con los escenarios `@component` de ordenar por precio y de agregar y quitar un producto con el contador del carrito
-- [ ] 4.2 Implementar localizadores, acciones y steps de carrito; verificar con el escenario `@component` de producto en el carrito
-- [ ] 4.3 Implementar localizadores, acciones y steps del formulario de checkout; verificar con el escenario `@component` de datos obligatorios de checkout
-- [ ] 4.4 Implementar el menú lateral compartido (cerrar sesión); verificar con el escenario `@component` de cierre de sesión
-- [ ] 4.5 Actualizar la guía con las pantallas agregadas; verificar que los ejemplos de la guía corresponden al código existente
-- [ ] 4.6 Avisar al usuario el cierre de la iteración 4 con el resultado del criterio de salida y detenerse para su commit
+- [x] 4.1 Implementar localizadores, acciones y steps de inventario; verificar con los escenarios `@component` de ordenar por precio y de agregar y quitar un producto con el contador del carrito
+- [x] 4.2 Implementar localizadores, acciones y steps de carrito; verificar con el escenario `@component` de producto en el carrito
+- [x] 4.3 Implementar localizadores, acciones y steps del formulario de checkout; verificar con el escenario `@component` de datos obligatorios de checkout
+- [x] 4.4 Implementar el menú lateral compartido (cerrar sesión); verificar con el escenario `@component` de cierre de sesión
+- [x] 4.5 Actualizar la guía con las pantallas agregadas; verificar que los ejemplos de la guía corresponden al código existente
+- [x] 4.6 Avisar al usuario el cierre de la iteración 4 con el resultado del criterio de salida y detenerse para su commit
 
 ## 5. Iteración 5: E2E, ejecución por tipo y alta de aplicación
 

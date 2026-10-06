@@ -115,6 +115,54 @@ Given the user is logged in as "standard"
 
 Está en `steps/saucedemo/CommonSteps.java` y usa `LoginActions.openAndLogin(...)`. Si el login falla, el error aparece en ese step y no en uno posterior.
 
+## Pantallas y componentes de saucedemo
+
+Cada pantalla tiene su pareja `*Locators` + `*Actions` y sus steps:
+
+| Pantalla o componente | Locators y Actions | Steps |
+|---|---|---|
+| Login | `LoginLocators`, `LoginActions` | `LoginSteps` |
+| Inventario (lista de productos) | `InventoryLocators`, `InventoryActions` | `InventorySteps` |
+| Carrito | `CartLocators`, `CartActions` | `CartSteps` |
+| Checkout (formulario de datos) | `CheckoutLocators`, `CheckoutActions` | `CheckoutSteps` |
+| Cabecera y menú lateral (**compartido**) | `HeaderLocators`, `HeaderActions` | `InventorySteps` (contador) y `MenuSteps` (cerrar sesión) |
+
+**Componente compartido:** el contador del carrito y el menú lateral aparecen en todas las pantallas después del login. Por eso viven en `HeaderActions` y no se repiten en cada pantalla. Los steps de cualquier pantalla pueden recibirlo por el constructor.
+
+### Localizadores dinámicos
+
+Cuando el selector depende de un dato (por ejemplo el nombre del producto), el `*Locators` ofrece un método que arma el `By`. Los selectores siguen viviendo en esa clase:
+
+```java
+public static By addToCartButton(String productName) {
+    return By.cssSelector("[data-test='add-to-cart-" + toSlug(productName) + "']");
+}
+```
+
+Y la acción lo usa sin escribir ningún selector:
+
+```java
+public void addToCart(String productName) {
+    click(addToCartButton(productName));
+}
+```
+
+### Esperas que desaparecen y varios elementos
+
+`BaseActions` también ofrece `getTexts` (texto de varios elementos, por ejemplo la lista de precios), `selectByVisibleText` (listas desplegables) y `waitUntilGone` (esperar a que algo desaparezca, como el contador del carrito al quitar el último producto).
+
+### Estado común con `Background`
+
+Cuando todos los escenarios de un `.feature` empiezan igual, se usa `Background`. Por ejemplo, el checkout siempre empieza con un usuario autenticado y un producto en el carrito:
+
+```gherkin
+Background:
+  Given the user is logged in as "standard"
+  And the user adds "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  And the user starts the checkout
+```
+
 ## Usuarios y datos de prueba
 
 Los usuarios **no se escriben en los steps ni en los `.feature`**. Los escenarios usan un alias (`"standard"`, `"locked"`) y las credenciales viven en `src/test/resources/config/saucedemo.properties`:
@@ -125,6 +173,8 @@ user.standard.password=secret_sauce
 ```
 
 `TestUsers` las lee por alias. Para cambiar un usuario o agregar otro, solo se edita ese archivo.
+
+Los demás datos de prueba (por ejemplo la persona compradora del checkout: `checkout.first.name`, `checkout.last.name`, `checkout.postal.code`) también están en ese archivo y los steps los leen con `ConfigReader`.
 
 ## SOLID, en versión básica
 

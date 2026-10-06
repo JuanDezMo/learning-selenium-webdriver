@@ -3,11 +3,13 @@ package com.empresa.core;
 import com.empresa.config.ConfigReader;
 import com.empresa.driver.DriverManager;
 import java.time.Duration;
+import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -70,6 +72,26 @@ public class BaseActions {
     /** Espera a que el elemento sea visible y devuelve su texto. */
     protected String getText(By locator) {
         return waitUntilVisible(locator).getText();
+    }
+
+    /** Espera a que haya al menos un elemento visible y devuelve el texto de todos los que coinciden. */
+    protected List<String> getTexts(By locator) {
+        waitUntilVisible(locator);
+        return driver.findElements(locator).stream().map(WebElement::getText).toList();
+    }
+
+    /** Espera a que la lista desplegable sea visible y elige la opción con ese texto. */
+    protected void selectByVisibleText(By locator, String optionText) {
+        new Select(waitUntilVisible(locator)).selectByVisibleText(optionText);
+    }
+
+    /** Espera hasta el tiempo máximo a que el elemento deje de estar visible; devuelve false si sigue visible. */
+    protected boolean waitUntilGone(By locator) {
+        try {
+            return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     /** Indica si el elemento está visible en este momento, sin esperar. */

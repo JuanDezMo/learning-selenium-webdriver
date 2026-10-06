@@ -39,6 +39,11 @@ public class LoginActions extends BaseActions {
         login(username, password);
     }
 
+    /** Espera a que se muestre el formulario de login; falla con un mensaje claro si no aparece. */
+    public boolean isLoginPageDisplayed() {
+        return waitUntilVisible(LOGIN_BUTTON).isDisplayed();
+    }
+
     /** Devuelve el mensaje de error que muestra la pantalla de login. */
     public String getErrorMessage() {
         return getText(ERROR_MESSAGE);
