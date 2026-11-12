@@ -17,3 +17,6 @@ allure-report/
 
 # Sistema operativo
 .DS_Store
+
+# Claude Code
+.claude/
