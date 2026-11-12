@@ -1,4 +1,4 @@
-@component
+@component @login
 Feature: Login
 
   Scenario: A user with valid credentials can log in

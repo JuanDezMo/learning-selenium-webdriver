@@ -86,7 +86,7 @@ Cómo está organizado el código (Page Object Model en dos capas, reglas SOLID 
 ## Estructura
 
 ```
-src/test/java/com/empresa/
+src/test/java/co/com/learningseleniumwebdriver/
   config/    lectura de configuración
   core/      acciones base con esperas explícitas
   driver/    creación y cierre del navegador (uno por hilo)

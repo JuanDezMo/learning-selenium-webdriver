@@ -241,15 +241,15 @@ Se crean archivos nuevos y **no se modifica ningún archivo del núcleo ni de ot
 
 1. **Configuración:** `src/test/resources/config/miapp.properties`, con al menos `base.url=...` (y sus usuarios de prueba: `user.<alias>.name` y `user.<alias>.password`).
 2. **Localizadores y acciones**, por cada pantalla:
-   - `src/test/java/com/empresa/pages/miapp/locators/HomeLocators.java` (solo `By`)
-   - `src/test/java/com/empresa/pages/miapp/actions/HomeActions.java` (extiende `BaseActions`)
-3. **Steps:** `src/test/java/com/empresa/steps/miapp/HomeSteps.java`. Deben vivir en el paquete `com.empresa.steps.miapp`.
+   - `src/test/java/co/com/learningseleniumwebdriver/pages/miapp/locators/HomeLocators.java` (solo `By`)
+   - `src/test/java/co/com/learningseleniumwebdriver/pages/miapp/actions/HomeActions.java` (extiende `BaseActions`)
+3. **Steps:** `src/test/java/co/com/learningseleniumwebdriver/steps/miapp/HomeSteps.java`. Deben vivir en el paquete `co.com.learningseleniumwebdriver.steps.miapp`.
 4. **Escenarios:** `src/test/resources/features/miapp/component/home.feature` (y `.../e2e/` para los E2E), con su etiqueta.
-5. **Runner:** copia `src/test/java/com/empresa/runner/RunSaucedemoTest.java` como `RunMiappTest.java` y cambia tres cosas: el nombre de la clase, `@SelectClasspathResource("features/miapp")` y el paquete de steps (`com.empresa.steps.miapp`). **El nombre debe ser `Run<Aplicacion>Test`** con la primera letra en mayúscula, porque Gradle lo usa para elegir la aplicación.
+5. **Runner:** copia `src/test/java/co/com/learningseleniumwebdriver/runner/RunSaucedemoTest.java` como `RunMiappTest.java` y cambia tres cosas: el nombre de la clase, `@SelectClasspathResource("features/miapp")` y el paquete de steps (`co.com.learningseleniumwebdriver.steps.miapp`). **El nombre debe ser `Run<Aplicacion>Test`** con la primera letra en mayúscula, porque Gradle lo usa para elegir la aplicación.
 
 Para ejecutarla: `./gradlew componentTest -Dapp=miapp`.
 
-**Por qué cada aplicación tiene su runner y su paquete de steps:** Cucumber falla si dos steps tienen el mismo texto en el mismo conjunto de steps. Con un runner por aplicación, dos aplicaciones pueden usar frases iguales (por ejemplo `Given the user is on the login page`) sin chocar. Los hooks comunes (cerrar el navegador) viven en `com.empresa.steps.common` y todos los runners los incluyen.
+**Por qué cada aplicación tiene su runner y su paquete de steps:** Cucumber falla si dos steps tienen el mismo texto en el mismo conjunto de steps. Con un runner por aplicación, dos aplicaciones pueden usar frases iguales (por ejemplo `Given the user is on the login page`) sin chocar. Los hooks comunes (cerrar el navegador) viven en `co.com.learningseleniumwebdriver.steps.common` y todos los runners los incluyen.
 
 ## Qué se agrega en cada situación
 

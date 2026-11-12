@@ -1,0 +1,20 @@
+package co.com.learningseleniumwebdriver.pages.saucedemo.locators;
+
+import org.openqa.selenium.By;
+
+/** Localizadores del checkout de saucedemo: formulario de datos, resumen del pedido y confirmación. */
+public final class CheckoutLocators {
+
+    public static final By FIRST_NAME_INPUT = By.cssSelector("[data-test='firstName']");
+    public static final By LAST_NAME_INPUT = By.cssSelector("[data-test='lastName']");
+    public static final By POSTAL_CODE_INPUT = By.cssSelector("[data-test='postalCode']");
+    public static final By CONTINUE_BUTTON = By.cssSelector("[data-test='continue']");
+    public static final By ERROR_MESSAGE = By.cssSelector("[data-test='error']");
+
+    // Paso 2 (resumen del pedido) y paso 3 (confirmación)
+    public static final By FINISH_BUTTON = By.cssSelector("[data-test='finish']");
+    public static final By CONFIRMATION_HEADER = By.cssSelector("[data-test='complete-header']");
+
+    private CheckoutLocators() {
+    }
+}
